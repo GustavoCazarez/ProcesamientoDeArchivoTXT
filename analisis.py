@@ -7,13 +7,13 @@ import pandas as pd
 import numpy as np
 
 def cargar_datos(ruta_archivo):
-    """Carga los datos desde un TXT ignorando encabezados y manejando codificación."""
+    """carga los datos desde un TXT ignorando encabezados y manejando codificación."""
     columnas = ['FECHA', 'PRECIP', 'EVAP', 'TMAX', 'TMIN']
     return pd.read_csv(ruta_archivo, sep=r'\s+', skiprows=19, names=columnas, 
                        na_values='Nulo', engine='python', encoding='latin-1')
 
 def limpiar_clima(df):
-    """Realiza la limpieza, conteo de faltantes e imputación por media."""
+    """realiza la limpieza"""
     
     #limpieza de Fechas
     df['FECHA'] = pd.to_datetime(df['FECHA'], dayfirst=True, errors='coerce')
@@ -30,7 +30,7 @@ def limpiar_clima(df):
     return df
 
 def ejecutar_analisis():
-    """Función principal que orquesta el proceso."""
+    """función principal"""
     archivo = '25001.txt'
     
     #Carga
@@ -40,12 +40,12 @@ def ejecutar_analisis():
     df_limpio = limpiar_clima(raw_data)
     
     #mostrar resultados
-    print("Muestra de datos procesados (Primeras 5 filas):")
+    print("muestra de datos procesados (Primeras 5 filas):")
     print(df_limpio.head())
     
     #Exportación
     df_limpio.to_csv('datos_procesados_acatitan.csv', index=False)
-    print("\nÉxito: Se ha generado el archivo 'datos_procesados_acatitan.csv'")
+    print("\nexito: Se ha generado el archivo 'datos_procesados_acatitan.csv'")
 
 if __name__ == "__main__":
     ejecutar_analisis()
